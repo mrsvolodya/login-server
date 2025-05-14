@@ -104,9 +104,25 @@ async function generateTokens(res, user) {
   });
 }
 
+const logout = async (req, res) => {
+  const { refreshToken } = req.cookies;
+  const userData = await jwtService.verifyRefresh(refreshToken);
+
+  if (!userData || !refreshToken) {
+    throw ApiError.unauthorized();
+  }
+
+  await tokenService.remove(userData.id);
+
+  res.clearCookie("refreshToken");
+
+  res.sendStatus(204);
+};
+
 export const authController = {
   register,
   activate,
   refresh,
   login,
+  logout,
 };
