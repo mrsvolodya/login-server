@@ -1,13 +1,12 @@
 import express from "express";
 import { authController } from "../controllers/auth.controller.js";
 import { catchError } from "../utils/catchError.js";
-export const authRouter = new express.Router();
+export const router = new express.Router();
 
-authRouter.post("/registration", catchError(authController.register));
-authRouter.get(
-  "/activation/:activationToken",
-  catchError(authController.activate)
-);
-authRouter.post("/login", catchError(authController.login));
-authRouter.get("/refresh", catchError(authController.refresh));
-authRouter.post("/logout", catchError(authController.logout));
+router.post("/registration", catchError(authController.register));
+router.get("/activation/:activationToken", catchError(authController.activate));
+router.post("/login", catchError(authController.login));
+router.get("/refresh", catchError(authController.refresh));
+router.post("/logout", catchError(authController.logout));
+
+export { router as authRouter };

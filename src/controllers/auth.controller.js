@@ -6,6 +6,130 @@ import { tokenService } from "../services/token.service.js";
 import { userService } from "../services/user.service.js";
 
 const EMAIL_PATTERN = /^[\w.+-]+@([\w-]+\.){1,3}[\w-]{2,}$/;
+/**
+ * @swagger
+ * /registration:
+ *   post:
+ *     summary: Register a new user
+ *     description: Create a new user account.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Registration successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: OK
+ *       400:
+ *         description: Invalid input
+ */
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: User login
+ *     description: Log in a user and get a token.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *       400:
+ *         description: Invalid input
+ */
+/**
+ * @swagger
+ * /refresh:
+ *   get:
+ *     summary: Refresh access token
+ *     description: Get a new access token using a refresh token.
+ *     responses:
+ *       200:
+ *         description: Token refreshed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                 accessToken:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized
+ */
+/**
+ * @swagger
+ * /activation/{activationToken}:
+ *   get:
+ *     summary: Activate user account
+ *     description: Activate a user account using the activation token.
+ *     parameters:
+ *       - in: path
+ *         name: activationToken
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The activation token sent to the user's email
+ *     responses:
+ *       200:
+ *         description: Account activated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *       404:
+ *         description: Invalid activation token
+ */
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: Logout user
+ *     description: Log out the user and clear the refresh token.
+ *     responses:
+ *       204:
+ *         description: Logout successful, no content
+ *       401:
+ *         description: Unauthorized
+ */
 
 function validateEmail(value) {
   if (!value) return "Email is required";
